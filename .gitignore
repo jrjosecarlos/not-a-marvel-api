@@ -1,4 +1,4 @@
-### Ignores originais provenientes do Spring Initalizr ###
+### Ignores from Spring Initalizr ###
 
 HELP.md
 target/
@@ -35,7 +35,7 @@ build/
 .vscode/
 
 
-### Ignores adicionais para o Eclipse, provenientes de https://github.com/github/gitignore/blob/master/Global/Eclipse.gitignore ###
+### Additional ignores for Eclipse, from https://github.com/github/gitignore/blob/master/Global/Eclipse.gitignore ###
 
 .metadata
 bin/
