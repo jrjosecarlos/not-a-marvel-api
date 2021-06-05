@@ -14,7 +14,9 @@
 	<name>not-a-marvel-api</name>
 	<description>API project based on Marvel API</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -63,6 +65,21 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+		        <artifactId>maven-surefire-plugin</artifactId>
+		        <executions>
+		          <execution>
+		            <id>default-test</id>
+		            <phase>test</phase>
+		            <goals>
+		              <goal>test</goal>
+		            </goals>
+		            <configuration>
+						<argLine>-Dspring.profiles.active=test</argLine>
+		            </configuration>
+		          </execution>
+		        </executions>
+		      </plugin>
 		</plugins>
 	</build>
 
