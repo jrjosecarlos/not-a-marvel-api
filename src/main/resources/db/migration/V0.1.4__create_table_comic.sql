@@ -10,7 +10,7 @@ CREATE TABLE nama.comic (
 	diamond_code VARCHAR(25) NULL,
 	ean VARCHAR(25) NULL,
 	issn VARCHAR(25) NULL,
-	format VARCHAR(25) NULL,
+	format VARCHAR(25) NOT NULL,
 	page_count INT NOT NULL,
 	modified TIMESTAMP WITH TIME ZONE NOT NULL,
 	CONSTRAINT fk_comic_series FOREIGN KEY (series_id)

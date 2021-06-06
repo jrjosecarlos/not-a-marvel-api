@@ -3,6 +3,6 @@ CREATE TABLE nama.creator (
 	first_name varchar(40) NOT NULL,
 	middle_name varchar(60) NULL,
 	last_name varchar(60) NOT NULL,
-	suffix varchar(60) NULL,
+	suffix varchar(40) NULL,
 	modified TIMESTAMP WITH TIME ZONE NOT NULL
 );
