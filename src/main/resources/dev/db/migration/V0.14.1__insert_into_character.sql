@@ -1,0 +1,6 @@
+INSERT INTO nama."character"(id_character, name, description, modified) VALUES
+('f100b1df-07c7-4f2d-a604-c322c36933d6', 'Renato', 'Um heroi forte, veloz, ágil e simplório', current_timestamp()),
+('5f442d4b-f0eb-4e49-aaeb-5526f8dd7ced', 'Scott', 'Vivendo uma infância solitária e sem os pais, Scott conversava apenas com seu amigo imaginário Gilbert. Porém, após crescer, ficou a dúvida: quem efetivamente está no controle? Scott ou Gilbert?', current_timestamp()),
+('740bc432-8a58-4daf-9194-c98da0df6781', 'Nicholas', 'Oriundo da Philadelphia, Nick não consegue lidar bem com outras pessoas. Seu objetivo é sempre ganhar, nunca perder. Sua vida mudou quando, numa situação que parecia apenas outra disputa qualquer, acabou acidentalmente tirando a vida de seu melhor amigo.', current_timestamp()),
+('a9727005-1b1d-4325-aba8-7954f4151426', 'Clark', 'Um vilão destemido, cujo objetivo é apenas um: destruir o mundo', current_timestamp()),
+('6761af20-2ee6-421c-8923-379e45200d8e', 'Gilbert', 'Surgindo apenas como um "amigo imaginário" de Scott, tomou forma própria e se tornou uma entidade independente. Ou nem tão independente assim?', current_timestamp());
