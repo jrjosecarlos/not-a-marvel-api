@@ -6,7 +6,7 @@ CREATE TABLE nama.series (
 	end_year INT NOT NULL,
 	rating VARCHAR(40) NULL, 
 	modified TIMESTAMP WITH TIME ZONE NOT NULL,
-	next_series_id UUID NULL,
-	CONSTRAINT fk_series_next_series FOREIGN KEY (next_series_id)
+	previous_series_id UUID NULL,
+	CONSTRAINT fk_series_previous_series FOREIGN KEY (previous_series_id)
 		REFERENCES nama.series (id_series)
 );
