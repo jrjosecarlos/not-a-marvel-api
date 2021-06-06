@@ -1,9 +1,14 @@
 package br.org.jrjosecarlos.notamarvelapi.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,7 +16,7 @@ import javax.validation.constraints.Size;
 /**
  * Represents a character, group of characters or organizations which
  * appear in comics.
- * 
+ *
  * @author jrjosecarlos
  */
 @Entity
@@ -24,10 +29,13 @@ public class Character extends BaseEntity {
 	@Size(max = 100)
 	@NotNull
 	private String name;
-	
+
 	@Lob
 	@Column(name = "description", nullable = true, columnDefinition="TEXT")
 	private String description;
+
+	@ManyToMany(mappedBy = "characters", fetch = FetchType.LAZY)
+	private Set<Story> stories = new HashSet<>();
 
 	/**
 	 * Returns the current value of name.
@@ -64,5 +72,5 @@ public class Character extends BaseEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-		
+
 }

@@ -1,12 +1,20 @@
 /**
- * 
+ *
  */
 package br.org.jrjosecarlos.notamarvelapi.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,15 +34,22 @@ public class Story extends BaseEntity {
 	@Size(max = 100)
 	@NotNull
 	private String title;
-	
+
 	@Column(name = "type", length = 40, nullable = false)
 	@Size(max = 40)
 	@NotNull
 	private String type;
-	
+
 	@Lob
 	@Column(name = "description", nullable = true, columnDefinition = "TEXT")
 	private String description;
+
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@JoinTable(schema = "nama", name = "story_character",
+			joinColumns = @JoinColumn(name = "story_id"),
+			inverseJoinColumns = @JoinColumn(name = "character_id")
+		)
+	private Set<Character> characters = new HashSet<>();
 
 	/**
 	 * Returns the current value of title.
