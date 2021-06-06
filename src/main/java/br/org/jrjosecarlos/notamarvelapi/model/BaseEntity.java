@@ -13,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 /**
  * Base structure for most of the entities.
- * 
+ *
  * @author jrjosecarlos
  */
 @MappedSuperclass
@@ -27,7 +27,7 @@ public abstract class BaseEntity {
 	@Column(updatable = false, nullable = false)
 	@NotNull
 	private UUID id;
-	
+
 	@Column(name = "modified", nullable = false)
 	@NotNull
 	private ZonedDateTime modified;
@@ -67,5 +67,31 @@ public abstract class BaseEntity {
 	public void setModified(ZonedDateTime modified) {
 		this.modified = modified;
 	}
-	
+
+	// Both equals and hashCode implementations are based on information available on:
+	// https://vladmihalcea.com/the-best-way-to-implement-equals-hashcode-and-tostring-with-jpa-and-hibernate/
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+
+		if (o == null) {
+			return false;
+		}
+
+		if (this.getClass() != o.getClass()) {
+			return false;
+		}
+
+		BaseEntity other = (BaseEntity) o;
+
+		return this.getId() != null && this.getId().equals(other.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return this.getClass().hashCode();
+	}
+
 }
