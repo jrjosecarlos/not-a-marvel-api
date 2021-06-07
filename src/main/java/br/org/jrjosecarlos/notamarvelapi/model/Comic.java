@@ -3,6 +3,8 @@
  */
 package br.org.jrjosecarlos.notamarvelapi.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -87,13 +89,13 @@ public class Comic extends BaseEntity {
 	private Series series;
 
 	@OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ComicDescriptiveText> descriptiveTexts;
+	private List<ComicDescriptiveText> descriptiveTexts = new ArrayList<>();
 
 	@OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ComicDate> dates;
+	private List<ComicDate> dates = new ArrayList<>();
 
 	@OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ComicPrice> prices;
+	private List<ComicPrice> prices = new ArrayList<>();
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	@JoinColumn(name = "original_comic_id")
@@ -104,7 +106,7 @@ public class Comic extends BaseEntity {
 			joinColumns = @JoinColumn(name = "comic_id"),
 			inverseJoinColumns = @JoinColumn(name = "story_id")
 		)
-	private Set<Story> stories;
+	private Set<Story> stories = new HashSet<>();
 
 	/**
 	 * Returns the current value of digitalId.
