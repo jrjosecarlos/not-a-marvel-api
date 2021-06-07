@@ -1,3 +1,3 @@
-INSERT INTO nama.event (id_event, title, description, start_date, end_date, modified, next_event_id) VALUES
+INSERT INTO nama.event (id_event, title, description, start_date, end_date, modified, previous_event_id) VALUES
 ('08b2ad5c-ccec-4af1-a2c8-ad91d0814a93', 'Expurgo', 'E quando as entidades superiores entendem que o universo não está como desejavam? A solução é simples: expurgo do universo atual.', '2012-05-06 00:00', '2012-12-10 00:00', current_timestamp(), null),
-('56f047a5-b82d-4c33-8927-c14e001707f6', 'Um novo mundo', 'Partindo das consequências do Expurgo, os sobreviventes tentam encontrar novos objetivos, já que o lar que conheciam não existe mais.', '2015-01-02 00:00', '2017-04-28 00:00', current_timestamp(), null);
+('56f047a5-b82d-4c33-8927-c14e001707f6', 'Um novo mundo', 'Partindo das consequências do Expurgo, os sobreviventes tentam encontrar novos objetivos, já que o lar que conheciam não existe mais.', '2015-01-02 00:00', '2017-04-28 00:00', current_timestamp(), '08b2ad5c-ccec-4af1-a2c8-ad91d0814a93');

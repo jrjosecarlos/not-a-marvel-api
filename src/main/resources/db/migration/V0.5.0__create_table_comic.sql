@@ -1,6 +1,7 @@
 CREATE TABLE nama.comic (
 	id_comic UUID NOT NULL CONSTRAINT pk_comic PRIMARY KEY,
 	series_id UUID NOT NULL,
+	original_comic_id UUID NULL,
 	digital_id INT(20) NULL,
 	title VARCHAR(100) NOT NULL,
 	issue_number INT NOT NULL,
@@ -12,6 +13,7 @@ CREATE TABLE nama.comic (
 	issn VARCHAR(25) NULL,
 	format VARCHAR(25) NOT NULL,
 	page_count INT NOT NULL,
+	variant_description VARCHAR(50) NULL,
 	modified TIMESTAMP WITH TIME ZONE NOT NULL,
 	CONSTRAINT fk_comic_series FOREIGN KEY (series_id)
 		REFERENCES nama.series (id_series)
