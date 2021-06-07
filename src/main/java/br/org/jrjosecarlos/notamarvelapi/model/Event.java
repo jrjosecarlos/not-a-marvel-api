@@ -4,13 +4,17 @@
 package br.org.jrjosecarlos.notamarvelapi.model;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -46,6 +50,22 @@ public class Event extends BaseEntity {
 	@OneToOne(fetch = FetchType.LAZY, optional = true)
 	@JoinColumn(name = "previous_event_id")
 	private Event previousEvent;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(schema = "nama", name = "event_comic",
+			joinColumns = @JoinColumn(name = "event_id"),
+			inverseJoinColumns = @JoinColumn(name = "comic_id")
+		)
+	private Set<Comic> comics = new HashSet<>();
+
+	/**
+	 * Returns the current value of comics.
+	 *
+	 * @return the current value of comics.
+	 */
+	public Set<Comic> getComics() {
+		return this.comics;
+	}
 
 	/**
 	 * Returns the current value of title.
