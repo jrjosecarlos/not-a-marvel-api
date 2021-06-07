@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package br.org.jrjosecarlos.notamarvelapi.model;
 
@@ -8,7 +8,10 @@ import java.time.LocalDateTime;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,16 +32,20 @@ public class Event extends BaseEntity {
 	@Size(max = 100)
 	@NotNull
 	private String title;
-	
+
 	@Lob
 	@Column(name = "description", nullable = true)
 	private String description;
-	
+
 	@Column(name = "start_date", nullable = true)
 	private LocalDateTime startDate;
-	
+
 	@Column(name = "end_date", nullable = true)
 	private LocalDateTime endDate;
+
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(name = "previous_event_id")
+	private Event previousEvent;
 
 	/**
 	 * Returns the current value of title.
