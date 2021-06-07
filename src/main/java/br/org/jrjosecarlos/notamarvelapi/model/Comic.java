@@ -75,6 +75,10 @@ public class Comic extends BaseEntity {
 	@NotNull
 	private Integer pageCount;
 
+	@Column(name = "variant_description", length = 50, nullable = true)
+	@Size(max = 50)
+	private String variantDescription;
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "series_id", nullable = false)
 	private Series series;
@@ -87,6 +91,11 @@ public class Comic extends BaseEntity {
 
 	@OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComicPrice> prices;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(name = "original_comic_id")
+	private Comic originalComic;
+
 
 	/**
 	 * Returns the current value of digitalId.
@@ -287,6 +296,24 @@ public class Comic extends BaseEntity {
 	}
 
 	/**
+	 * Returns the current value of variantDescription.
+	 *
+	 * @return the current value of variantDescription.
+	 */
+	public String getVariantDescription() {
+		return this.variantDescription;
+	}
+
+	/**
+	 * Sets a new value for variantDescription.
+	 *
+	 * @param variantDescription the new value for variantDescription.
+	 */
+	public void setVariantDescription(String variantDescription) {
+		this.variantDescription = variantDescription;
+	}
+
+	/**
 	 * Returns the current value of series.
 	 *
 	 * @return the current value of series.
@@ -358,4 +385,12 @@ public class Comic extends BaseEntity {
 		this.prices = prices;
 	}
 
+	/**
+	 * Returns the current value of originalComic.
+	 *
+	 * @return the current value of originalComic.
+	 */
+	public Comic getOriginalComic() {
+		return this.originalComic;
+	}
 }
