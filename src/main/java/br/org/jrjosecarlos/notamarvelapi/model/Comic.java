@@ -4,6 +4,7 @@
 package br.org.jrjosecarlos.notamarvelapi.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
@@ -11,7 +12,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -96,6 +99,12 @@ public class Comic extends BaseEntity {
 	@JoinColumn(name = "original_comic_id")
 	private Comic originalComic;
 
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(schema = "nama", name = "comic_story",
+			joinColumns = @JoinColumn(name = "comic_id"),
+			inverseJoinColumns = @JoinColumn(name = "story_id")
+		)
+	private Set<Story> stories;
 
 	/**
 	 * Returns the current value of digitalId.
