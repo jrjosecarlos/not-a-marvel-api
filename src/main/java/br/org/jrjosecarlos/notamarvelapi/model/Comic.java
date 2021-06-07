@@ -108,6 +108,13 @@ public class Comic extends BaseEntity {
 		)
 	private Set<Story> stories = new HashSet<>();
 
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(schema = "nama", name = "comic_collection",
+		joinColumns = @JoinColumn(name = "collection_comic_id"),
+		inverseJoinColumns = @JoinColumn(name = "collected_comic_id")
+	)
+	private Set<Comic> collectedIssues = new HashSet<>();
+
 	/**
 	 * Returns the current value of digitalId.
 	 *
