@@ -47,7 +47,7 @@ public class Story extends BaseEntity {
 	@Column(name = "description", nullable = true, columnDefinition = "TEXT")
 	private String description;
 
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(schema = "nama", name = "story_character",
 			joinColumns = @JoinColumn(name = "story_id"),
 			inverseJoinColumns = @JoinColumn(name = "character_id")
