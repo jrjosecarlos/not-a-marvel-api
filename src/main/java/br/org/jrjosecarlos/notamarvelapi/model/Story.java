@@ -3,7 +3,9 @@
  */
 package br.org.jrjosecarlos.notamarvelapi.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.AttributeOverride;
@@ -15,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,12 +47,16 @@ public class Story extends BaseEntity {
 	@Column(name = "description", nullable = true, columnDefinition = "TEXT")
 	private String description;
 
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	@JoinTable(schema = "nama", name = "story_character",
 			joinColumns = @JoinColumn(name = "story_id"),
 			inverseJoinColumns = @JoinColumn(name = "character_id")
 		)
 	private Set<Character> characters = new HashSet<>();
+
+	@OneToMany(mappedBy = "story", cascade = CascadeType.ALL, orphanRemoval = true,
+			fetch = FetchType.LAZY)
+	private List<StoryCreator> storyCreators = new ArrayList<>();
 
 	/**
 	 * Returns the current value of title.
