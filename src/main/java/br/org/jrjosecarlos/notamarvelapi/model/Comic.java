@@ -85,6 +85,9 @@ public class Comic extends BaseEntity {
 	@OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComicDate> dates;
 
+	@OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ComicPrice> prices;
+
 	/**
 	 * Returns the current value of digitalId.
 	 *
@@ -335,6 +338,24 @@ public class Comic extends BaseEntity {
 	 */
 	public void setDates(List<ComicDate> dates) {
 		this.dates = dates;
+	}
+
+	/**
+	 * Returns the current value of prices.
+	 *
+	 * @return the current value of prices.
+	 */
+	public List<ComicPrice> getPrices() {
+		return this.prices;
+	}
+
+	/**
+	 * Sets a new value for prices.
+	 *
+	 * @param prices the new value for prices.
+	 */
+	public void setPrices(List<ComicPrice> prices) {
+		this.prices = prices;
 	}
 
 }
