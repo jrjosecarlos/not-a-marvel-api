@@ -82,6 +82,9 @@ public class Comic extends BaseEntity {
 	@OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComicDescriptiveText> descriptiveTexts;
 
+	@OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ComicDate> dates;
+
 	/**
 	 * Returns the current value of digitalId.
 	 *
@@ -314,6 +317,24 @@ public class Comic extends BaseEntity {
 	 */
 	public void setDescriptiveTexts(List<ComicDescriptiveText> descriptiveTexts) {
 		this.descriptiveTexts = descriptiveTexts;
+	}
+
+	/**
+	 * Returns the current value of dates.
+	 *
+	 * @return the current value of dates.
+	 */
+	public List<ComicDate> getDates() {
+		return this.dates;
+	}
+
+	/**
+	 * Sets a new value for dates.
+	 *
+	 * @param dates the new value for dates.
+	 */
+	public void setDates(List<ComicDate> dates) {
+		this.dates = dates;
 	}
 
 }
