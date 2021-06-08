@@ -4,12 +4,14 @@
 package br.org.jrjosecarlos.notamarvelapi.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.org.jrjosecarlos.notamarvelapi.controller.dto.CharacterDTO;
 import br.org.jrjosecarlos.notamarvelapi.model.Character;
 import br.org.jrjosecarlos.notamarvelapi.model.Comic;
 import br.org.jrjosecarlos.notamarvelapi.model.Creator;
@@ -52,9 +54,12 @@ public class CharacterController {
 		this.repository = repository;
 	}
 
-	@GetMapping("/characters")
-	ResponseEntity<List<Character>> listAllCharacters() {
-		return ResponseEntity.ok(repository.findAll());
+	@GetMapping("/public/characters")
+	ResponseEntity<List<CharacterDTO>> listAllCharacters() {
+		return ResponseEntity.ok(repository.findAll().stream()
+				.map(CharacterDTO::of)
+				.collect(Collectors.toList())
+				);
 	}
 
 	@GetMapping("/creators")
