@@ -13,7 +13,7 @@ public class PagingOptions {
 	@Max(value = 100, message = "You may not request more than 100 items.")
 	private Integer limit = 20;
 
-	@Min(0)
+	@Min(value = 0, message = "Yout must pass an integer offset greater than or equal to 0.")
 	private Long offset = 0L;
 
 	/**
