@@ -12,9 +12,7 @@ import br.org.jrjosecarlos.notamarvelapi.model.Character;
  *
  * @author jrjosecarlos
  */
-public class CharacterFilter {
-
-	private PagingFilter pagingFilter = new PagingFilter();
+public class CharacterFilter extends PagingFilter {
 
 	private String name;
 
@@ -76,38 +74,6 @@ public class CharacterFilter {
 	 */
 	public void setModifiedSince(OffsetDateTime modifiedSince) {
 		this.modifiedSince = modifiedSince;
-	}
-
-	/**
-	 * @return limit
-	 * @see br.org.jrjosecarlos.notamarvelapi.controller.filters.PagingFilter#getLimit()
-	 */
-	public Integer getLimit() {
-		return pagingFilter.getLimit();
-	}
-
-	/**
-	 * @param limit
-	 * @see br.org.jrjosecarlos.notamarvelapi.controller.filters.PagingFilter#setLimit(java.lang.Integer)
-	 */
-	public void setLimit(Integer limit) {
-		pagingFilter.setLimit(limit);
-	}
-
-	/**
-	 * @return offset
-	 * @see br.org.jrjosecarlos.notamarvelapi.controller.filters.PagingFilter#getOffset()
-	 */
-	public Integer getOffset() {
-		return pagingFilter.getOffset();
-	}
-
-	/**
-	 * @param offset
-	 * @see br.org.jrjosecarlos.notamarvelapi.controller.filters.PagingFilter#setOffset(java.lang.Integer)
-	 */
-	public void setOffset(Integer offset) {
-		pagingFilter.setOffset(offset);
 	}
 
 	/**

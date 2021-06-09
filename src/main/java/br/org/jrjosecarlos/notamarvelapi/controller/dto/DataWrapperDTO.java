@@ -6,52 +6,13 @@ package br.org.jrjosecarlos.notamarvelapi.controller.dto;
  * @author jrjosecarlos
  * @param <T> contained data
  */
-public abstract class DataWrapperDTO<T> {
-	private Integer code;
-
-	private String status;
+public abstract class DataWrapperDTO<T> extends BaseResponseDTO {
 
 	private String copyright;
 
 	private String attributionText;
 
 	private DataContainerDTO<T> data;
-
-	/**
-	 * Returns the current value of code.
-	 *
-	 * @return the current value of code.
-	 */
-	public Integer getCode() {
-		return this.code;
-	}
-
-	/**
-	 * Sets a new value for code.
-	 *
-	 * @param code the new value for code.
-	 */
-	public void setCode(Integer code) {
-		this.code = code;
-	}
-
-	/**
-	 * Returns the current value of status.
-	 *
-	 * @return the current value of status.
-	 */
-	public String getStatus() {
-		return this.status;
-	}
-
-	/**
-	 * Sets a new value for status.
-	 *
-	 * @param status the new value for status.
-	 */
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 	/**
 	 * Returns the current value of copyright.

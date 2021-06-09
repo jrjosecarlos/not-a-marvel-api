@@ -9,8 +9,8 @@ import javax.validation.constraints.Min;
  * @author jrjosecarlos
  */
 public class PagingFilter {
-	@Min(1)
-	@Max(100)
+	@Min(value = 1, message = "You must pass an integer limit greater than 0.")
+	@Max(value = 100, message = "You may not request more than 100 items.")
 	private Integer limit = 20;
 
 	@Min(0)
