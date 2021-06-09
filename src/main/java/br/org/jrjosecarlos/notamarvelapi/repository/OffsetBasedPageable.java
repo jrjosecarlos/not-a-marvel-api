@@ -13,7 +13,7 @@ import org.springframework.data.domain.Sort;
  * @author Ergin
  * @author jrjosecarlos
  */
-public class OffsetBasedPageRequest implements Pageable, Serializable {
+public class OffsetBasedPageable implements Pageable, Serializable {
 
 	private static final long serialVersionUID = -25822477129613575L;
 
@@ -22,13 +22,13 @@ public class OffsetBasedPageRequest implements Pageable, Serializable {
 	private final Sort sort;
 
 	/**
-	 * Creates a new {@link OffsetBasedPageRequest} with sort parameters applied.
+	 * Creates a new {@link OffsetBasedPageable} with sort parameters applied.
 	 *
 	 * @param offset zero-based offset.
 	 * @param limit  the size of the elements to be returned.
 	 * @param sort   can be {@literal null}.
 	 */
-	public OffsetBasedPageRequest(long offset, int limit, Sort sort) {
+	public OffsetBasedPageable(long offset, int limit, Sort sort) {
 		if (offset < 0) {
 			throw new IllegalArgumentException("Offset index must not be less than zero!");
 		}
@@ -42,24 +42,24 @@ public class OffsetBasedPageRequest implements Pageable, Serializable {
 	}
 
 	/**
-	 * Creates a new {@link OffsetBasedPageRequest} with sort parameters applied.
+	 * Creates a new {@link OffsetBasedPageable} with sort parameters applied.
 	 *
 	 * @param offset     zero-based offset.
 	 * @param limit      the size of the elements to be returned.
 	 * @param direction  the direction of the {@link Sort} to be specified, can be {@literal null}.
 	 * @param properties the properties to sort by, must not be {@literal null} or empty.
 	 */
-	public OffsetBasedPageRequest(long offset, int limit, Sort.Direction direction, String... properties) {
+	public OffsetBasedPageable(long offset, int limit, Sort.Direction direction, String... properties) {
 		this(offset, limit, Sort.by(direction, properties));
 	}
 
 	/**
-	 * Creates a new {@link OffsetBasedPageRequest} with sort parameters applied.
+	 * Creates a new {@link OffsetBasedPageable} with sort parameters applied.
 	 *
 	 * @param offset zero-based offset.
 	 * @param limit  the size of the elements to be returned.
 	 */
-	public OffsetBasedPageRequest(long offset, int limit) {
+	public OffsetBasedPageable(long offset, int limit) {
 		this(offset, limit, Sort.unsorted());
 	}
 
@@ -85,11 +85,11 @@ public class OffsetBasedPageRequest implements Pageable, Serializable {
 
 	@Override
 	public Pageable next() {
-		return new OffsetBasedPageRequest(getOffset() + getPageSize(), getPageSize(), getSort());
+		return new OffsetBasedPageable(getOffset() + getPageSize(), getPageSize(), getSort());
 	}
 
-	public OffsetBasedPageRequest previous() {
-		return hasPrevious() ? new OffsetBasedPageRequest(getOffset() - getPageSize(), getPageSize(), getSort()) : this;
+	public OffsetBasedPageable previous() {
+		return hasPrevious() ? new OffsetBasedPageable(getOffset() - getPageSize(), getPageSize(), getSort()) : this;
 	}
 
 
@@ -100,7 +100,7 @@ public class OffsetBasedPageRequest implements Pageable, Serializable {
 
 	@Override
 	public Pageable first() {
-		return new OffsetBasedPageRequest(0, getPageSize(), getSort());
+		return new OffsetBasedPageable(0, getPageSize(), getSort());
 	}
 
 	@Override
@@ -110,16 +110,16 @@ public class OffsetBasedPageRequest implements Pageable, Serializable {
 
 	@Override
 	public Pageable withPage(int pageNumber) {
-		return new OffsetBasedPageRequest(getOffset() + pageNumber * getPageSize(), getPageSize(), getSort());
+		return new OffsetBasedPageable(getOffset() + (pageNumber * getPageSize()), getPageSize(), getSort());
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 
-		if (!(o instanceof OffsetBasedPageRequest)) return false;
+		if (!(o instanceof OffsetBasedPageable)) return false;
 
-		OffsetBasedPageRequest that = (OffsetBasedPageRequest) o;
+		OffsetBasedPageable that = (OffsetBasedPageable) o;
 
 		return (this.limit == that.limit) && (this.offset == that.offset) &&
 				Objects.equals(this.sort, that.sort);

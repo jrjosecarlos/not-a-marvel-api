@@ -2,11 +2,14 @@ package br.org.jrjosecarlos.notamarvelapi.repository;
 
 import java.time.OffsetDateTime;
 
+import org.springframework.data.domain.Pageable;
+
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 
 import br.org.jrjosecarlos.notamarvelapi.controller.filters.CharacterFilter;
+import br.org.jrjosecarlos.notamarvelapi.controller.filters.PagingOptions;
 import br.org.jrjosecarlos.notamarvelapi.model.Character;
 import br.org.jrjosecarlos.notamarvelapi.model.QCharacter;
 
@@ -16,6 +19,10 @@ import br.org.jrjosecarlos.notamarvelapi.model.QCharacter;
  * @author jrjosecarlos
  */
 public class CharacterPredicateBuilder {
+
+	private long offset;
+
+	private int limit;
 
 	private String name;
 
@@ -60,19 +67,50 @@ public class CharacterPredicateBuilder {
 		return this;
 	}
 
-	public static CharacterPredicateBuilder of(CharacterFilter filter) {
-		return new CharacterPredicateBuilder()
-				.setName(filter.getName())
-				.setNameStartsWith(filter.getNameStartsWith())
-				.setModifiedSince(filter.getModifiedSince());
+	/**
+	 * Sets a new value for limit.
+	 *
+	 * @param limit the new value for limit.
+	 * @return this object, for chained calls
+	 */
+	public CharacterPredicateBuilder setLimit(int limit) {
+		this.limit = limit;
+		return this;
 	}
 
 	/**
-	 * Builds a predicate based on this builder data.
+	 * Sets a new value for offset.
+	 *
+	 * @param offset the new value for offset.
+	 * @return this object, for chained calls
+	 */
+	public CharacterPredicateBuilder setOffset(long offset) {
+		this.offset = offset;
+		return this;
+	}
+
+	/**
+	 * Constructs a new Builder with data from {@link PagingOptions} and {@link CharacterFilter}.
+	 *
+	 * @param pagingOptions base for this Builder
+	 * @param filter base for this Builder
+	 * @return a new Builder
+	 */
+	public static CharacterPredicateBuilder of(PagingOptions pagingOptions, CharacterFilter filter) {
+		return new CharacterPredicateBuilder()
+				.setName(filter.getName())
+				.setNameStartsWith(filter.getNameStartsWith())
+				.setModifiedSince(filter.getModifiedSince())
+				.setLimit(pagingOptions.getLimit())
+				.setOffset(pagingOptions.getOffset());
+	}
+
+	/**
+	 * Builds a {@link Predicate} based on this builder data.
 	 *
 	 * @return a new Predicate
 	 */
-	public Predicate build() {
+	public Predicate buildPredicate() {
 		BooleanExpression resultado = Expressions.asBoolean(true).isTrue();
 
 		if (name != null) {
@@ -88,5 +126,14 @@ public class CharacterPredicateBuilder {
 		}
 
 		return resultado;
+	}
+
+	/**
+	 * Builds a {@link Pageable} based on this builder data.
+	 *
+	 * @return a new Pageable
+	 */
+	public Pageable buildPageable() {
+		return new OffsetBasedPageable(offset, limit);
 	}
 }

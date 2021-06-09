@@ -14,7 +14,7 @@ public class PagingOptions {
 	private Integer limit = 20;
 
 	@Min(0)
-	private Integer offset = 0;
+	private Long offset = 0L;
 
 	/**
 	 * Returns the current value of limit.
@@ -39,7 +39,7 @@ public class PagingOptions {
 	 *
 	 * @return the current value of offset.
 	 */
-	public Integer getOffset() {
+	public Long getOffset() {
 		return this.offset;
 	}
 
@@ -48,7 +48,7 @@ public class PagingOptions {
 	 *
 	 * @param offset the new value for offset.
 	 */
-	public void setOffset(Integer offset) {
+	public void setOffset(Long offset) {
 		this.offset = offset;
 	}
 
