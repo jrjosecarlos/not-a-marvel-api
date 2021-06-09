@@ -14,11 +14,13 @@ import br.org.jrjosecarlos.notamarvelapi.model.Character;
 import br.org.jrjosecarlos.notamarvelapi.model.QCharacter;
 
 /**
- * A {@link Predicate} builder for {@link Character} queries.
+ * A Builder for params used on {@link Character}-related queries. It builds
+ * namely a {@link Predicate}, for adding conditions to a query, and a {@link Pageable},
+ * for paging options.
  *
  * @author jrjosecarlos
  */
-public class CharacterPredicateBuilder {
+public class CharacterQueryParamsBuilder {
 
 	private long offset;
 
@@ -30,7 +32,7 @@ public class CharacterPredicateBuilder {
 
 	private OffsetDateTime modifiedSince;
 
-	protected CharacterPredicateBuilder() {
+	protected CharacterQueryParamsBuilder() {
 
 	}
 
@@ -40,7 +42,7 @@ public class CharacterPredicateBuilder {
 	 * @param name the new value for name.
 	 * @return this object, for chained calls
 	 */
-	public CharacterPredicateBuilder setName(String name) {
+	public CharacterQueryParamsBuilder setName(String name) {
 		this.name = name;
 		return this;
 	}
@@ -51,7 +53,7 @@ public class CharacterPredicateBuilder {
 	 * @param nameStartsWith the new value for nameStartsWith.
 	 * @return this object, for chained calls
 	 */
-	public CharacterPredicateBuilder setNameStartsWith(String nameStartsWith) {
+	public CharacterQueryParamsBuilder setNameStartsWith(String nameStartsWith) {
 		this.nameStartsWith = nameStartsWith;
 		return this;
 	}
@@ -62,7 +64,7 @@ public class CharacterPredicateBuilder {
 	 * @param modifiedSince the new value for modifiedSince.
 	 * @return this object, for chained calls
 	 */
-	public CharacterPredicateBuilder setModifiedSince(OffsetDateTime modifiedSince) {
+	public CharacterQueryParamsBuilder setModifiedSince(OffsetDateTime modifiedSince) {
 		this.modifiedSince = modifiedSince;
 		return this;
 	}
@@ -73,7 +75,7 @@ public class CharacterPredicateBuilder {
 	 * @param limit the new value for limit.
 	 * @return this object, for chained calls
 	 */
-	public CharacterPredicateBuilder setLimit(int limit) {
+	public CharacterQueryParamsBuilder setLimit(int limit) {
 		this.limit = limit;
 		return this;
 	}
@@ -84,7 +86,7 @@ public class CharacterPredicateBuilder {
 	 * @param offset the new value for offset.
 	 * @return this object, for chained calls
 	 */
-	public CharacterPredicateBuilder setOffset(long offset) {
+	public CharacterQueryParamsBuilder setOffset(long offset) {
 		this.offset = offset;
 		return this;
 	}
@@ -96,8 +98,8 @@ public class CharacterPredicateBuilder {
 	 * @param filter base for this Builder
 	 * @return a new Builder
 	 */
-	public static CharacterPredicateBuilder of(PagingOptions pagingOptions, CharacterFilter filter) {
-		return new CharacterPredicateBuilder()
+	public static CharacterQueryParamsBuilder of(PagingOptions pagingOptions, CharacterFilter filter) {
+		return new CharacterQueryParamsBuilder()
 				.setName(filter.getName())
 				.setNameStartsWith(filter.getNameStartsWith())
 				.setModifiedSince(filter.getModifiedSince())
