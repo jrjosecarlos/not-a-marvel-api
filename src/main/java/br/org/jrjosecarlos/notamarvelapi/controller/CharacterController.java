@@ -62,7 +62,8 @@ public class CharacterController {
 
 	@GetMapping("/public/characters")
 	ResponseEntity<DataWrapperDTO<CharacterDTO>> listAllCharacters(@Valid PagingOptions paging, @Valid CharacterFilter filters) {
-		List<CharacterDTO> characters = StreamSupport.stream(service.findAll(filters).spliterator(), false)
+		List<CharacterDTO> characters = StreamSupport.stream(service.findAll(paging, filters)
+					.spliterator(), false)
 				.map(CharacterDTO::of)
 				.collect(Collectors.toList());
 
