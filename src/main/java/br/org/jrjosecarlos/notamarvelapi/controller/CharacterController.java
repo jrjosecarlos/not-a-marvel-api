@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.org.jrjosecarlos.notamarvelapi.controller.dto.CharacterDTO;
 import br.org.jrjosecarlos.notamarvelapi.controller.filters.CharacterFilter;
+import br.org.jrjosecarlos.notamarvelapi.controller.filters.PagingOptions;
 import br.org.jrjosecarlos.notamarvelapi.model.Character;
 import br.org.jrjosecarlos.notamarvelapi.model.Comic;
 import br.org.jrjosecarlos.notamarvelapi.model.Creator;
@@ -59,7 +60,7 @@ public class CharacterController {
 	}
 
 	@GetMapping("/public/characters")
-	ResponseEntity<List<CharacterDTO>> listAllCharacters(@Valid CharacterFilter filters) {
+	ResponseEntity<List<CharacterDTO>> listAllCharacters(@Valid PagingOptions paging, @Valid CharacterFilter filters) {
 		return ResponseEntity.ok(StreamSupport.stream(service.findAll(filters).spliterator(), false)
 				.map(CharacterDTO::of)
 				.collect(Collectors.toList())

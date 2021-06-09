@@ -12,7 +12,7 @@ import br.org.jrjosecarlos.notamarvelapi.model.Character;
  *
  * @author jrjosecarlos
  */
-public class CharacterFilter extends PagingFilter {
+public class CharacterFilter {
 
 	private String name;
 
