@@ -1,18 +1,36 @@
 package br.org.jrjosecarlos.notamarvelapi.controller.dto;
 
+import java.util.List;
+
 /**
  * Common structure to be used by endpoints across the app.
  *
  * @author jrjosecarlos
  * @param <T> contained data
  */
-public abstract class DataWrapperDTO<T> extends BaseResponseDTO {
+public class DataWrapperDTO<T> extends BaseResponseDTO {
 
-	private String copyright;
+	private String copyright = "© 2021 not-a-marvel-api";
 
-	private String attributionText;
+	private String attributionText = "Data provided by not-a-marvel-api. © 2021 not-a-marvel-api";
 
 	private DataContainerDTO<T> data;
+
+	/**
+	 * Wraps a {@link List} of results into a new DataWrapper.
+	 *
+	 * @param <T> type of contained data
+	 * @param results to be wrapped
+	 * @return a new DataWrapper filled with data from results.
+	 */
+	public static <T> DataWrapperDTO<T> wrap(List<T> results) {
+		DataWrapperDTO<T> wrapper = new DataWrapperDTO<>();
+		DataContainerDTO<T> data = new DataContainerDTO<>();
+		data.setResults(results);
+
+		wrapper.setData(data);
+		return wrapper;
+	}
 
 	/**
 	 * Returns the current value of copyright.

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.jrjosecarlos.notamarvelapi.controller.dto.CharacterDTO;
+import br.org.jrjosecarlos.notamarvelapi.controller.dto.DataWrapperDTO;
 import br.org.jrjosecarlos.notamarvelapi.controller.filters.CharacterFilter;
 import br.org.jrjosecarlos.notamarvelapi.controller.filters.PagingOptions;
 import br.org.jrjosecarlos.notamarvelapi.model.Character;
@@ -60,11 +61,13 @@ public class CharacterController {
 	}
 
 	@GetMapping("/public/characters")
-	ResponseEntity<List<CharacterDTO>> listAllCharacters(@Valid PagingOptions paging, @Valid CharacterFilter filters) {
-		return ResponseEntity.ok(StreamSupport.stream(service.findAll(filters).spliterator(), false)
+	ResponseEntity<DataWrapperDTO<CharacterDTO>> listAllCharacters(@Valid PagingOptions paging, @Valid CharacterFilter filters) {
+		List<CharacterDTO> characters = StreamSupport.stream(service.findAll(filters).spliterator(), false)
 				.map(CharacterDTO::of)
-				.collect(Collectors.toList())
-			);
+				.collect(Collectors.toList());
+
+		return ResponseEntity.ok(DataWrapperDTO.wrap(characters));
+
 	}
 
 	@GetMapping("/creators")

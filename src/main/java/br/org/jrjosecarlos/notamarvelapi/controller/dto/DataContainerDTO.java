@@ -3,20 +3,21 @@ package br.org.jrjosecarlos.notamarvelapi.controller.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 /**
  * Data container.
  *
  * @author jrjosecarlos
  * @param <T> Type of contained data
  */
+@JsonPropertyOrder({"offset", "limit", "total", "count", "results"})
 public class DataContainerDTO<T> {
 	private Integer offset;
 
 	private Integer limit;
 
 	private Integer total;
-
-	private Integer count;
 
 	private List<T> results = new ArrayList<>();
 
@@ -80,16 +81,7 @@ public class DataContainerDTO<T> {
 	 * @return the current value of count.
 	 */
 	public Integer getCount() {
-		return this.count;
-	}
-
-	/**
-	 * Sets a new value for count.
-	 *
-	 * @param count the new value for count.
-	 */
-	public void setCount(Integer count) {
-		this.count = count;
+		return this.results.size();
 	}
 
 	/**
