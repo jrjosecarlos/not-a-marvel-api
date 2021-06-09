@@ -1,11 +1,11 @@
 package br.org.jrjosecarlos.notamarvelapi.controller.dto;
 
-import java.time.ZonedDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import br.org.jrjosecarlos.notamarvelapi.controller.serializers.CustomZonedDateTimeSerializer;
+import br.org.jrjosecarlos.notamarvelapi.controller.serializers.CustomOffsetDateTimeSerializer;
 import br.org.jrjosecarlos.notamarvelapi.model.Character;
 
 /**
@@ -20,8 +20,8 @@ public class CharacterDTO {
 
 	private String description;
 
-	@JsonSerialize(using = CustomZonedDateTimeSerializer.class)
-	private ZonedDateTime modified;
+	@JsonSerialize(using = CustomOffsetDateTimeSerializer.class)
+	private OffsetDateTime modified;
 
 	/**
 	 * Returns the current value of id.
@@ -82,7 +82,7 @@ public class CharacterDTO {
 	 *
 	 * @return the current value of modified.
 	 */
-	public ZonedDateTime getModified() {
+	public OffsetDateTime getModified() {
 		return this.modified;
 	}
 
@@ -91,7 +91,7 @@ public class CharacterDTO {
 	 *
 	 * @param modified the new value for modified.
 	 */
-	public void setModified(ZonedDateTime modified) {
+	public void setModified(OffsetDateTime modified) {
 		this.modified = modified;
 	}
 

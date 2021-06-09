@@ -1,7 +1,7 @@
 package br.org.jrjosecarlos.notamarvelapi.controller.serializers;
 
 import java.io.IOException;
-import java.time.ZonedDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -9,11 +9,11 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 /**
- * Custom serializer for {@link ZonedDateTime} instances.
+ * Custom serializer for {@link OffsetDateTime} instances.
  *
  * @author jrjosecarlos
  */
-public class CustomZonedDateTimeSerializer extends StdSerializer<ZonedDateTime> {
+public class CustomOffsetDateTimeSerializer extends StdSerializer<OffsetDateTime> {
 
 	/**
 	 * Serial version UID for this class
@@ -28,16 +28,16 @@ public class CustomZonedDateTimeSerializer extends StdSerializer<ZonedDateTime> 
 	/**
 	 * Default constructor
 	 */
-	public CustomZonedDateTimeSerializer() {
+	public CustomOffsetDateTimeSerializer() {
 		this(null);
 	}
 
-	public CustomZonedDateTimeSerializer(Class<ZonedDateTime> t) {
+	public CustomOffsetDateTimeSerializer(Class<OffsetDateTime> t) {
         super(t);
     }
 
 	@Override
-	public void serialize(ZonedDateTime value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+	public void serialize(OffsetDateTime value, JsonGenerator gen, SerializerProvider provider) throws IOException {
 		gen.writeString(FORMAT.format(value));
 	}
 }

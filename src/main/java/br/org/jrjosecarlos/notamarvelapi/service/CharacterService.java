@@ -1,7 +1,5 @@
 package br.org.jrjosecarlos.notamarvelapi.service;
 
-import java.util.List;
-
 import br.org.jrjosecarlos.notamarvelapi.controller.filters.CharacterFilter;
 import br.org.jrjosecarlos.notamarvelapi.model.Character;
 
@@ -17,5 +15,5 @@ public interface CharacterService {
 	 * @param filter filter conditions to include/exclude Characters from returning.
 	 * @return a List of Characters. May be empty.
 	 */
-	List<Character> findAll(CharacterFilter filter);
+	Iterable<Character> findAll(CharacterFilter filter);
 }

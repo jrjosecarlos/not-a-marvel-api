@@ -1,11 +1,12 @@
 package br.org.jrjosecarlos.notamarvelapi.service.impl;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
+
+import com.querydsl.core.types.Predicate;
 
 import br.org.jrjosecarlos.notamarvelapi.controller.filters.CharacterFilter;
 import br.org.jrjosecarlos.notamarvelapi.model.Character;
+import br.org.jrjosecarlos.notamarvelapi.repository.CharacterPredicateBuilder;
 import br.org.jrjosecarlos.notamarvelapi.repository.CharacterRepository;
 import br.org.jrjosecarlos.notamarvelapi.service.CharacterService;
 
@@ -24,8 +25,11 @@ public class CharacterServiceImpl implements CharacterService {
 	}
 
 	@Override
-	public List<Character> findAll(CharacterFilter filter) {
-		return repository.findAll();
+	public Iterable<Character> findAll(CharacterFilter filter) {
+		CharacterPredicateBuilder builder = CharacterPredicateBuilder.of(filter);
+		Predicate predicate = builder.build();
+
+		return repository.findAll(predicate);
 	}
 
 }

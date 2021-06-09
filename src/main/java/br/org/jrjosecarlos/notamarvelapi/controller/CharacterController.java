@@ -5,6 +5,7 @@ package br.org.jrjosecarlos.notamarvelapi.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.validation.Valid;
 
@@ -59,7 +60,7 @@ public class CharacterController {
 
 	@GetMapping("/public/characters")
 	ResponseEntity<List<CharacterDTO>> listAllCharacters(@Valid CharacterFilter filters) {
-		return ResponseEntity.ok(service.findAll(filters).stream()
+		return ResponseEntity.ok(StreamSupport.stream(service.findAll(filters).spliterator(), false)
 				.map(CharacterDTO::of)
 				.collect(Collectors.toList())
 			);

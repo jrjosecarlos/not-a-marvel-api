@@ -1,6 +1,6 @@
 package br.org.jrjosecarlos.notamarvelapi.model;
 
-import java.time.ZonedDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -30,7 +30,7 @@ public abstract class BaseEntity {
 
 	@Column(name = "modified", nullable = false)
 	@NotNull
-	private ZonedDateTime modified;
+	private OffsetDateTime modified;
 
 	/**
 	 * Returns the current value of id.
@@ -55,7 +55,7 @@ public abstract class BaseEntity {
 	 *
 	 * @return current value of modified.
 	 */
-	public ZonedDateTime getModified() {
+	public OffsetDateTime getModified() {
 		return modified;
 	}
 
@@ -64,7 +64,7 @@ public abstract class BaseEntity {
 	 *
 	 * @param modified a new value for modified.
 	 */
-	public void setModified(ZonedDateTime modified) {
+	public void setModified(OffsetDateTime modified) {
 		this.modified = modified;
 	}
 
