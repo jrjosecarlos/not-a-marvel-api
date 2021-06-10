@@ -1,9 +1,12 @@
 package br.org.jrjosecarlos.notamarvelapi.repository;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.QSort;
 
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
@@ -21,6 +24,8 @@ import br.org.jrjosecarlos.notamarvelapi.model.QCharacter;
  * @author jrjosecarlos
  */
 public class CharacterQueryParamsBuilder {
+
+	private static final OrderSpecifier<UUID> DEFAULT_ORDER = QCharacter.character.id.asc();
 
 	private long offset;
 
@@ -136,6 +141,6 @@ public class CharacterQueryParamsBuilder {
 	 * @return a new Pageable
 	 */
 	public Pageable buildPageable() {
-		return new OffsetBasedPageable(offset, limit);
+		return new OffsetBasedPageable(offset, limit, new QSort(DEFAULT_ORDER));
 	}
 }
