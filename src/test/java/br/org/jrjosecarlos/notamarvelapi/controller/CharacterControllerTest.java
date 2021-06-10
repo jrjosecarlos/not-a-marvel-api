@@ -1,4 +1,4 @@
-package br.org.jrjosecarlos.notamarvelapi;
+package br.org.jrjosecarlos.notamarvelapi.controller;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsString;
