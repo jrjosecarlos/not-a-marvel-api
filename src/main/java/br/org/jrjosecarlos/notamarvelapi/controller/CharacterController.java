@@ -4,12 +4,11 @@
 package br.org.jrjosecarlos.notamarvelapi.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,13 +60,10 @@ public class CharacterController {
 	}
 
 	@GetMapping("/public/characters")
-	ResponseEntity<DataWrapperDTO<CharacterDTO>> listAllCharacters(@Valid PagingOptions paging, @Valid CharacterFilter filters) {
-		List<CharacterDTO> characters = StreamSupport.stream(service.findAll(paging, filters)
-					.spliterator(), false)
-				.map(CharacterDTO::of)
-				.collect(Collectors.toList());
+	ResponseEntity<DataWrapperDTO<CharacterDTO>> listAllCharacters(@Valid PagingOptions pagingOptions, @Valid CharacterFilter filters) {
+		Page<Character> page = service.findAll(pagingOptions, filters);
 
-		return ResponseEntity.ok(DataWrapperDTO.wrap(characters));
+		return ResponseEntity.ok(DataWrapperDTO.wrap(pagingOptions, page, CharacterDTO::of));
 
 	}
 

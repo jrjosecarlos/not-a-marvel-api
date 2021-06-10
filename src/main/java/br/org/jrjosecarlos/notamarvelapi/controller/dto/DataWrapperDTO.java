@@ -1,6 +1,10 @@
 package br.org.jrjosecarlos.notamarvelapi.controller.dto;
 
-import java.util.List;
+import java.util.function.Function;
+
+import org.springframework.data.domain.Page;
+
+import br.org.jrjosecarlos.notamarvelapi.controller.filters.PagingOptions;
 
 /**
  * Common structure to be used by endpoints across the app.
@@ -17,16 +21,26 @@ public class DataWrapperDTO<T> extends BaseResponseDTO {
 	private DataContainerDTO<T> data;
 
 	/**
-	 * Wraps a {@link List} of results into a new DataWrapper.
+	 * Wraps a {@link Page} of results into a new DataWrapper, converting them beforehand.
 	 *
-	 * @param <T> type of contained data
-	 * @param results to be wrapped
-	 * @return a new DataWrapper filled with data from results.
+	 * @param <T> type of source data
+	 * @param <U> type of wrapped data
+	 * @param pagingOptions original {@link PagingOptions} received on request
+	 * @param page page result to be wrapped
+	 * @param converter Function to convert source data (as {@code <T>}) to dest data (as {@code <U>}).
+	 * @return a new DataWrapper filled with data converted from page.
+	 *
+	 * @implNote It is necessary to read the original pagingOptions because the actual offset
+	 * information is not returned on the Page object.
 	 */
-	public static <T> DataWrapperDTO<T> wrap(List<T> results) {
-		DataWrapperDTO<T> wrapper = new DataWrapperDTO<>();
-		DataContainerDTO<T> data = new DataContainerDTO<>();
-		data.setResults(results);
+	public static <T, U> DataWrapperDTO<U> wrap(PagingOptions pagingOptions, Page<T> page, Function<T, U> converter) {
+		DataWrapperDTO<U> wrapper = new DataWrapperDTO<>();
+		DataContainerDTO<U> data = new DataContainerDTO<>();
+
+		data.setResults(page.map(converter).getContent());
+		data.setOffset(pagingOptions.getOffset());
+		data.setLimit(pagingOptions.getLimit());
+		data.setTotal(page.getTotalElements());
 
 		wrapper.setData(data);
 		return wrapper;

@@ -2,6 +2,7 @@ package br.org.jrjosecarlos.notamarvelapi.controller.filters;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Represents paging options for queries (limit of results and offset for the first result).
@@ -11,9 +12,11 @@ import javax.validation.constraints.Min;
 public class PagingOptions {
 	@Min(value = 1, message = "You must pass an integer limit greater than 0.")
 	@Max(value = 100, message = "You may not request more than 100 items.")
+	@NotNull(message = "You may not pass a null limit")
 	private Integer limit = 20;
 
 	@Min(value = 0, message = "Yout must pass an integer offset greater than or equal to 0.")
+	@NotNull(message = "You may not pass a null offset")
 	private Long offset = 0L;
 
 	/**

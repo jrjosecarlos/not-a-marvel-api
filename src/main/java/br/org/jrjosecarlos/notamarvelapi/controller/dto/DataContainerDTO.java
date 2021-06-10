@@ -13,11 +13,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonPropertyOrder({"offset", "limit", "total", "count", "results"})
 public class DataContainerDTO<T> {
-	private Integer offset;
+	private Long offset;
 
 	private Integer limit;
 
-	private Integer total;
+	private Long total;
 
 	private List<T> results = new ArrayList<>();
 
@@ -26,7 +26,7 @@ public class DataContainerDTO<T> {
 	 *
 	 * @return the current value of offset.
 	 */
-	public Integer getOffset() {
+	public Long getOffset() {
 		return this.offset;
 	}
 
@@ -35,7 +35,7 @@ public class DataContainerDTO<T> {
 	 *
 	 * @param offset the new value for offset.
 	 */
-	public void setOffset(Integer offset) {
+	public void setOffset(Long offset) {
 		this.offset = offset;
 	}
 
@@ -62,7 +62,7 @@ public class DataContainerDTO<T> {
 	 *
 	 * @return the current value of total.
 	 */
-	public Integer getTotal() {
+	public Long getTotal() {
 		return this.total;
 	}
 
@@ -71,7 +71,7 @@ public class DataContainerDTO<T> {
 	 *
 	 * @param total the new value for total.
 	 */
-	public void setTotal(Integer total) {
+	public void setTotal(Long total) {
 		this.total = total;
 	}
 

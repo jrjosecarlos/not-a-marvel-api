@@ -1,5 +1,6 @@
 package br.org.jrjosecarlos.notamarvelapi.service.impl;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class CharacterServiceImpl implements CharacterService {
 	}
 
 	@Override
-	public Iterable<Character> findAll(PagingOptions pagingOptions, CharacterFilter filter) {
+	public Page<Character> findAll(PagingOptions pagingOptions, CharacterFilter filter) {
 		CharacterQueryParamsBuilder builder = CharacterQueryParamsBuilder.of(pagingOptions, filter);
 		Predicate predicate = builder.buildPredicate();
 		Pageable pageable = builder.buildPageable();
