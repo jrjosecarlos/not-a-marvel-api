@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,7 @@ import br.org.jrjosecarlos.notamarvelapi.model.QCharacter;
  */
 public class CharacterQueryParamsBuilder {
 
-	private static final OrderSpecifier<UUID> DEFAULT_ORDER = QCharacter.character.id.asc();
+	public static final OrderSpecifier<UUID> DEFAULT_ORDER = QCharacter.character.id.asc();
 
 	private static final Map<CharacterSortOptions, OrderSpecifier<?>> CHARACTER_ORDER = new EnumMap<>(CharacterSortOptions.class);
 
@@ -137,6 +138,8 @@ public class CharacterQueryParamsBuilder {
 	 * @return a new Builder
 	 */
 	public static CharacterQueryParamsBuilder of(PagingOptions pagingOptions, CharacterFilter filter) {
+		Objects.nonNull(pagingOptions);
+		Objects.nonNull(filter);
 		return new CharacterQueryParamsBuilder()
 				.setName(filter.getName())
 				.setNameStartsWith(filter.getNameStartsWith())
