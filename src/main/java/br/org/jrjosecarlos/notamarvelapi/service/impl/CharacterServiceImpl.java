@@ -3,6 +3,7 @@ package br.org.jrjosecarlos.notamarvelapi.service.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.types.Predicate;
 
@@ -12,6 +13,7 @@ import br.org.jrjosecarlos.notamarvelapi.model.Character;
 import br.org.jrjosecarlos.notamarvelapi.repository.CharacterQueryParamsBuilder;
 import br.org.jrjosecarlos.notamarvelapi.repository.CharacterRepository;
 import br.org.jrjosecarlos.notamarvelapi.service.CharacterService;
+import br.org.jrjosecarlos.notamarvelapi.service.StoryService;
 
 /**
  * Implementation of {@link CharacterService}.
@@ -19,12 +21,16 @@ import br.org.jrjosecarlos.notamarvelapi.service.CharacterService;
  * @author jrjosecarlos
  */
 @Service
+@Transactional(readOnly = true)
 public class CharacterServiceImpl implements CharacterService {
 
 	private final CharacterRepository repository;
 
-	CharacterServiceImpl(CharacterRepository repository) {
+	private final StoryService storyService;
+
+	CharacterServiceImpl(CharacterRepository repository, StoryService storyService) {
 		this.repository = repository;
+		this.storyService = storyService;
 	}
 
 	@Override
@@ -33,7 +39,9 @@ public class CharacterServiceImpl implements CharacterService {
 		Predicate predicate = builder.buildPredicate();
 		Pageable pageable = builder.buildPageable();
 
-		return repository.findAll(predicate, pageable);
+		Page<Character> page = repository.findAll(predicate, pageable);
+		page.forEach(c -> c.setStoryPage(storyService.findByCharacter(c)));
+		return page;
 	}
 
 }

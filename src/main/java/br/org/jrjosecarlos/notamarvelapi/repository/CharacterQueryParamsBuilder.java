@@ -152,21 +152,21 @@ public class CharacterQueryParamsBuilder {
 	 * @return a new Predicate
 	 */
 	public Predicate buildPredicate() {
-		BooleanExpression resultado = Expressions.asBoolean(true).isTrue();
+		BooleanExpression expression = Expressions.asBoolean(true).isTrue();
 
 		if (name != null) {
-			resultado = resultado.and(QCharacter.character.name.equalsIgnoreCase(name));
+			expression = expression.and(QCharacter.character.name.equalsIgnoreCase(name));
 		}
 
 		if (nameStartsWith != null) {
-			resultado = resultado.and(QCharacter.character.name.startsWithIgnoreCase(nameStartsWith));
+			expression = expression.and(QCharacter.character.name.startsWithIgnoreCase(nameStartsWith));
 		}
 
 		if (modifiedSince != null) {
-			resultado = resultado.and(QCharacter.character.modified.goe(modifiedSince));
+			expression = expression.and(QCharacter.character.modified.goe(modifiedSince));
 		}
 
-		return resultado;
+		return expression;
 	}
 
 	/**
