@@ -6,9 +6,12 @@ import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+
+import br.org.jrjosecarlos.notamarvelapi.controller.exception.QueryParamBindingException;
 
 /**
  * Parses a String {@code S} to {@link OffsetDateTime}, according to these rules:
@@ -32,14 +35,18 @@ public class StringToOffsetDateTimeConverter implements Converter<String, Offset
 
 	@Override
 	public OffsetDateTime convert(String source) {
-		if (source.length() <= 10) {
-			return LocalDateTime.of(LocalDate.parse(source, DATE_FORMATTER), LocalTime.MIDNIGHT)
-					.atOffset(ZoneOffset.UTC);
-		} else if (source.length() <= 19) {
-			return LocalDateTime.parse(source, DATE_TIME_FORMATTER)
-					.atOffset(ZoneOffset.UTC);
-		} else {
-			return OffsetDateTime.parse(source);
+		try {
+			if (source.length() <= 10) {
+				return LocalDateTime.of(LocalDate.parse(source, DATE_FORMATTER), LocalTime.MIDNIGHT)
+						.atOffset(ZoneOffset.UTC);
+			} else if (source.length() <= 19) {
+				return LocalDateTime.parse(source, DATE_TIME_FORMATTER)
+						.atOffset(ZoneOffset.UTC);
+			} else {
+				return OffsetDateTime.parse(source);
+			}
+		} catch (DateTimeParseException e) {
+			throw new QueryParamBindingException("Invalid or unrecognized parameter.");
 		}
 	}
 
