@@ -1,0 +1,7 @@
+CREATE TABLE nama.story (
+	id_story UUID NOT NULL CONSTRAINT pk_story PRIMARY KEY,
+	title VARCHAR(100) NOT NULL,
+	"type" VARCHAR(40) NOT NULL,
+	description TEXT NULL,
+	modified TIMESTAMP WITH TIME ZONE NOT NULL
+);

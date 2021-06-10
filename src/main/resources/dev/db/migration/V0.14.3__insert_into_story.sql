@@ -1,0 +1,6 @@
+INSERT INTO nama.story(id_story, title, "type", description, modified) VALUES
+('a55e879d-fb24-424c-bff0-3d1f2657aa55', 'O Mundo de Renato (2012) #100', 'cover', 'Nessa edição histórica, Renato enfrenta novamente seu eterno inimigo, Clark.', current_timestamp()),
+('cd2aa155-b116-4705-83c3-4899caa0062c', 'O Mundo de Renato (2012) #100 interior', 'interior', 'Num raro momento de descanso, Renato lembra de sua adolescência, quando as coisas eram mais simples.', current_timestamp()),
+('d3e46151-13fc-422d-a8e9-dce7b0631c68', 'Scott (1992) #87', 'cover', 'Após o desaparecimento de Gilbert, Scott não sabe o que fazer. Será que viver ainda vale a pena?', current_timestamp()),
+('6f88c1ff-07e2-45fe-ac9d-00744dc2d1d1', 'Scott (1992) #87 interior', 'interior', 'Continuando a investigação das origens de Gilbert, veremos finalmente quando ele surgiu pela primeira vez na vida de Scott.', current_timestamp()),
+('641c0288-6aee-4d35-bffb-34f9f3b9686a', 'Caso Philadelphia-GD347 (2001)', 'text', 'Uma visão do caso mais discutido dos últimos tempos na Philadelphia, na visão das pessoas que estiveram lá.', current_timestamp());
