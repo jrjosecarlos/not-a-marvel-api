@@ -61,10 +61,10 @@ Séries e Eventos podem conter uma relação cronológica entre si, com antecess
 Retorna uma lista de personagens baseado nos filtros informados. Aceita os seguintes query parameters, todos opcionais:
 
 | Nome           | Tipo de dados           | Descrição |
-|:--------------:|:-----------------------:|:---------:|
-| name           | string                  | Busca personagens com nome igual ao informado (case insensitive) |
-| nameStartsWith | string                  | Busca personagens cujo nome inicie com o texto informado (case insensitive) |
-| modifiedSince  | date/datetime/timestamp | Busca personagens cuja última alteração ocorreu após a data/data e hora informada |
-| orderBy        | enum                    | Ordena os resultados. Valores possíveis: name (nome em ordem crescente); modified (data de modificação em ordem crescente); -name (nome em ordem decrescente); -modified (data de modificação em ordem decrescente). Mais de uma opção pode ser informada, desde que separadas por vírgulas. Ex: `name,-modified`) |
-| limit          | int                     | Limita o total de resultados exibidos. Deve ser maior ou igual a 1 e menor que 100. Se não informado, assume o valor padrão `20`. |
-| offset         | int                     | Pula n resultados a partir do início. Deve ser maior ou igual a 0. Se não informado, assume o valor 0 |
+|:--------------:|:-----------------------:| --------- |
+| name           | string                  | Busca personagens com nome igual ao informado (case insensitive). |
+| nameStartsWith | string                  | Busca personagens cujo nome inicie com o texto informado (case insensitive). |
+| modifiedSince  | date/datetime/timestamp | Busca personagens cuja última alteração ocorreu após a data/data e hora informada. Os valores devem ser informados no padrão ISO-8601. |
+| orderBy        | enum                    | Ordena os resultados. Valores possíveis: name (nome em ordem crescente); modified (data de modificação em ordem crescente); -name (nome em ordem decrescente); -modified (data de modificação em ordem decrescente). Mais de uma opção pode ser informada, desde que separadas por vírgulas. Ex: `name,-modified`. |
+| limit          | int                     | Limita o total de resultados exibidos. Deve ser maior ou igual a 1 e menor que 100. Se não informado, assume o valor padrão 20. |
+| offset         | int                     | Pula n resultados a partir do início. Deve ser maior ou igual a 0. Se não informado, assume o valor 0. |
