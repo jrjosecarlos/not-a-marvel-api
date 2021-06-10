@@ -5,7 +5,7 @@ package br.org.jrjosecarlos.notamarvelapi.controller.exception;
  *
  * @author jrjosecarlos
  */
-public abstract class BaseQueryParamBindingException extends IllegalArgumentException {
+public class QueryParamBindingException extends IllegalArgumentException {
 
 	/**
 	 * Serial UID for this class.
@@ -17,7 +17,7 @@ public abstract class BaseQueryParamBindingException extends IllegalArgumentExce
 	 *
 	 * @param message
 	 */
-	protected BaseQueryParamBindingException(String message) {
+	public QueryParamBindingException(String message) {
 		super(message);
 	}
 

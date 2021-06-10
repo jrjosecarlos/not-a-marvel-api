@@ -10,7 +10,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.org.jrjosecarlos.notamarvelapi.controller.dto.BaseResponseDTO;
-import br.org.jrjosecarlos.notamarvelapi.controller.exception.BaseQueryParamBindingException;
+import br.org.jrjosecarlos.notamarvelapi.controller.exception.QueryParamBindingException;
 
 /**
  * Main exception handler for the application.
@@ -26,7 +26,7 @@ public class RestControllerResponseEntityExceptionHandler extends ResponseEntity
 		FieldError fe = ex.getFieldError();
 		String message;
 		if (fe.isBindingFailure()) {
-			Throwable rootCause = getRootOrGivenCause(fe.unwrap(Throwable.class), BaseQueryParamBindingException.class);
+			Throwable rootCause = getRootOrGivenCause(fe.unwrap(Throwable.class), QueryParamBindingException.class);
 			message = rootCause.getMessage();
 		} else {
 			message = fe.getDefaultMessage();
