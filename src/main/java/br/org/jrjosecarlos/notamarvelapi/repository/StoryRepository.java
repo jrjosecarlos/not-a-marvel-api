@@ -1,11 +1,12 @@
 /**
- * 
+ *
  */
 package br.org.jrjosecarlos.notamarvelapi.repository;
 
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import br.org.jrjosecarlos.notamarvelapi.model.Story;
 
@@ -14,6 +15,6 @@ import br.org.jrjosecarlos.notamarvelapi.model.Story;
  *
  * @author jrjosecarlos
  */
-public interface StoryRepository extends JpaRepository<Story, UUID>{
+public interface StoryRepository extends JpaRepository<Story, UUID>, QuerydslPredicateExecutor<Story> {
 
 }

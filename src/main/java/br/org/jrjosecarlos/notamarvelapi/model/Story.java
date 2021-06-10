@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
 @AttributeOverride(name = "id",
 	column = @Column(name = "id_story")
 )
-public class Story extends BaseEntity {
+public class Story extends BaseEntity implements Summarizable {
 	@Column(name = "title", length = 100, nullable = false)
 	@Size(max = 100)
 	@NotNull
@@ -112,4 +112,13 @@ public class Story extends BaseEntity {
 		this.description = description;
 	}
 
+	@Override
+	public String getSummaryName() {
+		return title;
+	}
+
+	@Override
+	public String getSummaryType() {
+		return type;
+	}
 }
