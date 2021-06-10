@@ -1,6 +1,7 @@
 package br.org.jrjosecarlos.notamarvelapi.controller.dto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -88,6 +89,22 @@ public class ResourceListDTO {
 		dto.setAvailable(page.getTotalElements());
 		dto.setReturned(page.getNumberOfElements());
 		dto.setItems(page.map(ResourceSummaryDTO::of).getContent());
+
+		return dto;
+	}
+
+	/**
+	 * Creates an empty ResourceListDTO, i.e. with 0 available and returned
+	 * resources and an empty list as items.
+	 *
+	 * @return a representation of an empty ResourceListDTO
+	 */
+	public static ResourceListDTO empty() {
+		ResourceListDTO dto = new ResourceListDTO();
+
+		dto.setAvailable(0L);
+		dto.setReturned(0);
+		dto.setItems(Collections.emptyList());
 
 		return dto;
 	}

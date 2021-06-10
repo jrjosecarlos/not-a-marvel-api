@@ -135,6 +135,8 @@ public class CharacterDTO {
 		dto.setModified(character.getModified());
 		if (character.getStoryPage() != null) {
 			dto.setStories(ResourceListDTO.ofSummarizablePage(character.getStoryPage()));
+		} else {
+			dto.setStories(ResourceListDTO.empty());
 		}
 
 		return dto;
