@@ -1,7 +1,12 @@
 package br.org.jrjosecarlos.notamarvelapi.repository;
 
 import java.time.OffsetDateTime;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QSort;
@@ -12,6 +17,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 
 import br.org.jrjosecarlos.notamarvelapi.controller.filters.CharacterFilter;
+import br.org.jrjosecarlos.notamarvelapi.controller.filters.CharacterFilter.CharacterSortOptions;
 import br.org.jrjosecarlos.notamarvelapi.controller.filters.PagingOptions;
 import br.org.jrjosecarlos.notamarvelapi.model.Character;
 import br.org.jrjosecarlos.notamarvelapi.model.QCharacter;
@@ -27,6 +33,15 @@ public class CharacterQueryParamsBuilder {
 
 	private static final OrderSpecifier<UUID> DEFAULT_ORDER = QCharacter.character.id.asc();
 
+	private static final Map<CharacterSortOptions, OrderSpecifier<?>> CHARACTER_ORDER = new EnumMap<>(CharacterSortOptions.class);
+
+	static {
+		CHARACTER_ORDER.put(CharacterSortOptions.NAME_ASC, QCharacter.character.name.asc());
+		CHARACTER_ORDER.put(CharacterSortOptions.NAME_DESC, QCharacter.character.name.desc());
+		CHARACTER_ORDER.put(CharacterSortOptions.MODIFIED_ASC, QCharacter.character.modified.asc());
+		CHARACTER_ORDER.put(CharacterSortOptions.MODIFIED_DESC, QCharacter.character.modified.desc());
+	}
+
 	private long offset;
 
 	private int limit;
@@ -36,6 +51,8 @@ public class CharacterQueryParamsBuilder {
 	private String nameStartsWith;
 
 	private OffsetDateTime modifiedSince;
+
+	private List<CharacterSortOptions> orderBy;
 
 	protected CharacterQueryParamsBuilder() {
 
@@ -97,6 +114,22 @@ public class CharacterQueryParamsBuilder {
 	}
 
 	/**
+	 * Sets a new value for orderBy.
+	 *
+	 * @param orderBy the new value for orderBy. If the parameter is null,
+	 * orderBy is set to {@link Collections#emptyList()} instead.
+	 * @return this object, for chained calls
+	 */
+	public CharacterQueryParamsBuilder setOrderBy(List<CharacterSortOptions> orderBy) {
+		if (orderBy != null) {
+			this.orderBy = orderBy;
+		} else {
+			this.orderBy = Collections.emptyList();
+		}
+		return this;
+	}
+
+	/**
 	 * Constructs a new Builder with data from {@link PagingOptions} and {@link CharacterFilter}.
 	 *
 	 * @param pagingOptions base for this Builder
@@ -109,7 +142,8 @@ public class CharacterQueryParamsBuilder {
 				.setNameStartsWith(filter.getNameStartsWith())
 				.setModifiedSince(filter.getModifiedSince())
 				.setLimit(pagingOptions.getLimit())
-				.setOffset(pagingOptions.getOffset());
+				.setOffset(pagingOptions.getOffset())
+				.setOrderBy(filter.getOrderBy());
 	}
 
 	/**
@@ -141,6 +175,13 @@ public class CharacterQueryParamsBuilder {
 	 * @return a new Pageable
 	 */
 	public Pageable buildPageable() {
-		return new OffsetBasedPageable(offset, limit, new QSort(DEFAULT_ORDER));
+		List<OrderSpecifier<?>> orderSpecifiers = orderBy.stream()
+			.map(CHARACTER_ORDER::get)
+			.collect(Collectors.toList());
+		if (orderSpecifiers.isEmpty()) {
+			orderSpecifiers.add(DEFAULT_ORDER);
+		}
+
+		return new OffsetBasedPageable(offset, limit, new QSort(orderSpecifiers));
 	}
 }
