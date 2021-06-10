@@ -115,6 +115,15 @@ public class CharacterFilter {
 			return this.code;
 		}
 
+		/**
+		 * Tries to convert a String to the correspondent {@link CharacterSortOptions} enum,
+		 * based on its value.
+		 *
+		 * @param value the value to convert
+		 * @return the CharacterSortOptions corresponding to the value
+		 * @throws IllegalArgumentException if value doesn't correspond to any of CharacterSortOptions
+		 * values.
+		 */
 		public static CharacterSortOptions fromValue(String value) {
 			return EnumSet.allOf(CharacterSortOptions.class).stream()
 					.filter(e -> e.getCode().equals(value))

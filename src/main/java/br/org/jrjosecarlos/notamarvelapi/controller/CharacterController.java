@@ -64,7 +64,6 @@ public class CharacterController {
 		Page<Character> page = service.findAll(pagingOptions, filters);
 
 		return ResponseEntity.ok(DataWrapperDTO.wrap(pagingOptions, page, CharacterDTO::of));
-
 	}
 
 	@GetMapping("/creators")

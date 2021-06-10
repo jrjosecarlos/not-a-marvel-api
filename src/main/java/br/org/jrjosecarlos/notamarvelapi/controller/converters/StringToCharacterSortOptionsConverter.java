@@ -3,6 +3,7 @@ package br.org.jrjosecarlos.notamarvelapi.controller.converters;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import br.org.jrjosecarlos.notamarvelapi.controller.exception.IllegalOrderingParameterException;
 import br.org.jrjosecarlos.notamarvelapi.controller.filters.CharacterFilter.CharacterSortOptions;
 
 /**
@@ -15,7 +16,11 @@ public class StringToCharacterSortOptionsConverter implements Converter<String, 
 
 	@Override
 	public CharacterSortOptions convert(String source) {
-		return CharacterSortOptions.fromValue(source);
+		try {
+			return CharacterSortOptions.fromValue(source);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalOrderingParameterException();
+		}
 	}
 
 }

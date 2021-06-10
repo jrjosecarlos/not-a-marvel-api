@@ -10,6 +10,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.org.jrjosecarlos.notamarvelapi.controller.dto.BaseResponseDTO;
+import br.org.jrjosecarlos.notamarvelapi.controller.exception.BaseQueryParamBindingException;
 
 /**
  * Main exception handler for the application.
@@ -23,8 +24,32 @@ public class RestControllerResponseEntityExceptionHandler extends ResponseEntity
 	protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status,
 			WebRequest request) {
 		FieldError fe = ex.getFieldError();
-		BaseResponseDTO baseResponse = new BaseResponseDTO(HttpStatus.CONFLICT, fe.getDefaultMessage());
+		String message;
+		if (fe.isBindingFailure()) {
+			Throwable rootCause = getRootOrGivenCause(fe.unwrap(Throwable.class), BaseQueryParamBindingException.class);
+			message = rootCause.getMessage();
+		} else {
+			message = fe.getDefaultMessage();
+		}
+		BaseResponseDTO baseResponse = new BaseResponseDTO(HttpStatus.CONFLICT, message);
 		return super.handleExceptionInternal(ex, baseResponse, headers, baseResponse.getHttpStatus(), request);
+	}
+
+	/**
+	 * Searches into a Throwable causes for the root cause (the first one), stopping early if a given
+	 * Throwable class or subclass is found.
+	 * @param t the Throwable to be searched
+	 * @param given a given Throwable class, which stops the search if found
+	 * @return the original Throwable t, if it doesn't have any causes; the root cause of t,
+	 * if there are no subclasses of given class on t's cause hierarchy; or a Throwable with given class,
+	 * if it's on t's hierarchy.
+	 */
+	private static Throwable getRootOrGivenCause(Throwable t, Class<? extends Throwable> given) {
+		Throwable rootCause = t;
+		while (rootCause.getCause() != null && rootCause.getCause() != rootCause && !rootCause.getClass().isAssignableFrom(given)) {
+	        rootCause = rootCause.getCause();
+	    }
+	    return rootCause;
 	}
 
 }
