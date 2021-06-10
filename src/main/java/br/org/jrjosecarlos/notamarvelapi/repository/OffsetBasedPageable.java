@@ -95,12 +95,12 @@ public class OffsetBasedPageable implements Pageable, Serializable {
 
 	@Override
 	public Pageable previousOrFirst() {
-		return hasPrevious() ? previous() : first();
+		return hasPrevious() ? previous() : this;
 	}
 
 	@Override
 	public Pageable first() {
-		return new OffsetBasedPageable(0, getPageSize(), getSort());
+		return this.withPage(0);
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class OffsetBasedPageable implements Pageable, Serializable {
 
 	@Override
 	public Pageable withPage(int pageNumber) {
-		return new OffsetBasedPageable(getOffset() + (pageNumber * getPageSize()), getPageSize(), getSort());
+		return new OffsetBasedPageable(getFirstOffset(getOffset(), getPageSize()) + (pageNumber * getPageSize()), getPageSize(), getSort());
 	}
 
 	@Override
@@ -127,7 +127,25 @@ public class OffsetBasedPageable implements Pageable, Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(limit, offset, sort);
+		return Objects.hash(offset, limit, sort);
+	}
+
+	/**
+	 * Gets the offset for the first page, based on the current offset
+	 * and the page size.
+	 *
+	 * @param currentOffset current offset
+	 * @param limit page size
+	 * @return offset for the first page
+	 */
+	private static long getFirstOffset(long currentOffset, int limit) {
+		long firstOffset = currentOffset;
+
+		while(firstOffset > limit) {
+			firstOffset -= limit;
+		}
+
+		return firstOffset;
 	}
 
 }
