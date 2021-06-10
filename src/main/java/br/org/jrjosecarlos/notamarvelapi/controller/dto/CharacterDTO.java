@@ -23,6 +23,8 @@ public class CharacterDTO {
 	@JsonSerialize(using = CustomOffsetDateTimeSerializer.class)
 	private OffsetDateTime modified;
 
+	private ResourceListDTO stories;
+
 	/**
 	 * Returns the current value of id.
 	 *
@@ -96,6 +98,24 @@ public class CharacterDTO {
 	}
 
 	/**
+	 * Returns the current value of stories.
+	 *
+	 * @return the current value of stories.
+	 */
+	public ResourceListDTO getStories() {
+		return this.stories;
+	}
+
+	/**
+	 * Sets a new value for stories.
+	 *
+	 * @param stories the new value for stories.
+	 */
+	public void setStories(ResourceListDTO stories) {
+		this.stories = stories;
+	}
+
+	/**
 	 * Creates a new DTO based on an instance of the entity class
 	 * {@code Character}.
 	 *
@@ -113,6 +133,9 @@ public class CharacterDTO {
 		dto.setName(character.getName());
 		dto.setDescription(character.getDescription());
 		dto.setModified(character.getModified());
+		if (character.getStoryPage() != null) {
+			dto.setStories(ResourceListDTO.ofSummarizablePage(character.getStoryPage()));
+		}
 
 		return dto;
 	}
