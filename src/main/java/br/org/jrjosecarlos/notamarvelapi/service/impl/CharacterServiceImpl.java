@@ -1,5 +1,6 @@
 package br.org.jrjosecarlos.notamarvelapi.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,13 +25,14 @@ import br.org.jrjosecarlos.notamarvelapi.service.StoryService;
 @Transactional(readOnly = true)
 public class CharacterServiceImpl implements CharacterService {
 
-	private final CharacterRepository repository;
+	@Autowired
+	private CharacterRepository repository;
 
-	private final StoryService storyService;
+	@Autowired
+	private StoryService storyService;
 
-	CharacterServiceImpl(CharacterRepository repository, StoryService storyService) {
-		this.repository = repository;
-		this.storyService = storyService;
+	CharacterServiceImpl() {
+
 	}
 
 	@Override
